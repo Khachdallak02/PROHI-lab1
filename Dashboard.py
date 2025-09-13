@@ -1,15 +1,15 @@
 import streamlit as st
+import numpy as np
+import pandas as pd
+import plotly.express as px
 
 st.set_page_config(
     page_title="PROHI Dashboard",
     page_icon="👋",
 )
 
-# Sidebar configuration
 st.sidebar.image("./assets/project-logo.jpg",)
 st.sidebar.success("Select a tab above.")
-
-# # Page information
 
 st.write("# Welcome to PROHI Dashboard! 👋")
 
@@ -34,7 +34,6 @@ st.markdown(
 """
 )
 
-# You can also add text right into the web as long comments (""")
 """
 The final project aims to apply data science concepts and skills on a 
 medical case study that you and your team select from a public data source.
@@ -44,16 +43,41 @@ the analytical skills to argue how and why specific techniques could
 enhance the problem domain related to the selected dataset.
 """
 
-### UNCOMMENT THE CODE BELOW TO SEE EXAMPLE OF INPUT WIDGETS
+st.markdown("---")
 
-# # DATAFRAME MANAGEMENT
-# import numpy as np
+# Input widgets
+st.header("Dashboard Controls")
 
-# dataframe = np.random.randn(10, 20)
-# st.dataframe(dataframe)
+num_patients = st.slider('Number of patients', 10, 100, 50)
 
-# # Add a slider to the sidebar:
-# add_slider = st.slider(
-#     'Select a range of values',
-#     0.0, 100.0, (25.0, 75.0)
-# )
+chart_type = st.selectbox('Chart type', ['Scatter Plot', 'Bar Chart', 'Line Chart'])
+
+show_data = st.checkbox('Show raw data', value=True)
+
+# Generate some fake data
+np.random.seed(42)
+data = {
+    'Age': np.random.randint(20, 80, num_patients),
+    'Heart_Rate': np.random.randint(60, 100, num_patients),
+    'Blood_Pressure': np.random.randint(90, 140, num_patients),
+    'Temperature': np.random.normal(37.0, 0.5, num_patients).round(1)
+}
+
+df = pd.DataFrame(data)
+
+# Show data table
+if show_data:
+    st.subheader("Patient Data")
+    st.dataframe(df)
+
+# Make chart
+st.subheader("Visualization")
+
+if chart_type == 'Scatter Plot':
+    fig = px.scatter(df, x='Age', y='Blood_Pressure', title='Age vs Blood Pressure')
+elif chart_type == 'Bar Chart':
+    fig = px.bar(df, x=df.index, y='Heart_Rate', title='Heart Rate by Patient')
+else:
+    fig = px.line(df, x='Age', y='Blood_Pressure', title='Blood Pressure vs Age')
+
+st.plotly_chart(fig)
