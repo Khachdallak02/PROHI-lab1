@@ -8,8 +8,16 @@ st.set_page_config(
     page_icon="👋",
 )
 
-st.sidebar.image("./assets/project-logo.jpg",)
-st.sidebar.success("Select a tab above.")
+st.sidebar.image("./assets/project-logo.jpg")
+
+# Navigation buttons
+if st.sidebar.button("🏠 Dashboard", type="primary"):
+    st.switch_page("Dashboard.py")
+    
+if st.sidebar.button("👤 About"):
+    st.switch_page("pages/About.py")
+
+st.sidebar.markdown("---")
 
 st.write("# Welcome to PROHI Dashboard! 👋")
 
@@ -70,7 +78,7 @@ if show_data:
     st.subheader("Patient Data")
     st.dataframe(df)
 
-# Make chart
+# Visualize the chart
 st.subheader("Visualization")
 
 if chart_type == 'Scatter Plot':
