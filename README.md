@@ -35,11 +35,11 @@ This interactive web dashboard was created as part of Lab 2 for the "Project Man
 ### Installation of libraries
 
 ### Dashboard Controls and Data Table
-![Dashboard Data](data.png)
+![Dashboard Data](./assets/data.png)
 *Interactive controls allow users to adjust sample size, chart type, and toggle data visibility. The patient data table shows synthetic health records with realistic medical values.*
 
 ### Data Visualization
-![Dashboard Visualization](visualization.png)
+![Dashboard Visualization](./assets/visualization.png)
 *The default scatter plot shows the relationship between patient age and blood pressure, with interactive features powered by Plotly.*
 
 ## Installation & Setup
